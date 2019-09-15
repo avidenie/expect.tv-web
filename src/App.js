@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx, keyframes } from '@emotion/core'
-import logo from './logo.svg'
+import logo from 'logo.svg'
 
 const appLogoSpin = keyframes`
   from {
