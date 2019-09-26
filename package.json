@@ -32,6 +32,10 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "@storybook/addon-actions": "^5.2.0",
+    "@storybook/addon-links": "^5.2.0",
+    "@storybook/addons": "^5.2.0",
+    "@storybook/react": "^5.2.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-emotion": "^10.0.14",
     "eslint-plugin-prettier": "^3.1.0",
@@ -51,6 +55,8 @@
   "scripts": {
     "build": "react-scripts build",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   }
 }
