@@ -1,8 +1,40 @@
 {
   "name": "@expect.tv/web",
-  "description": "A suite of apps and tools to discover great movies and TV shows",
   "version": "0.1.0",
+  "private": true,
+  "description": "A suite of apps and tools to discover great movies and TV shows",
+  "bugs": {
+    "url": "https://github.com/avidenie/expect.tv-web/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avidenie/expect.tv-web.git"
+  },
   "author": "Adrian Videnie <avidenie@gmail.com>",
+  "scripts": {
+    "build": "react-scripts build",
+    "build-storybook": "build-storybook -s public",
+    "commit": "git-cz",
+    "release": "standard-version",
+    "start": "react-scripts start",
+    "storybook": "start-storybook -p 9009 -s public",
+    "test": "react-scripts test"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -13,14 +45,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "bugs": {
-    "url": "https://github.com/avidenie/expect.tv-web/issues"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
     ]
   },
   "dependencies": {
@@ -43,29 +67,5 @@
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
     "standard-version": "^7.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
-    }
-  },
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/avidenie/expect.tv-web.git"
-  },
-  "scripts": {
-    "build": "react-scripts build",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "commit": "git-cz",
-    "release": "standard-version",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
