@@ -5,4 +5,8 @@ export default {
   title: 'App'
 }
 
-export const basic = () => <App />
+export const simple = () => <App />
+
+simple.story = {
+  name: 'default'
+}
