@@ -1,26 +1,12 @@
 /** @jsx jsx */
-import { Global, css, jsx } from '@emotion/core'
+import { css, Global, jsx } from '@emotion/core'
 import { Fragment } from 'react'
+import global from 'styles/global'
 
 function App() {
   return (
     <Fragment>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-              'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-              'Helvetica Neue', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-          }
-          code {
-            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-              monospace;
-          }
-        `}
-      />
+      <Global styles={global} />
       <div css={{ textAlign: 'center' }}>
         <header
           css={css`
