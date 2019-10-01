@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/react-hooks'
-import MediaCard from 'components/media-card'
 import gql from 'graphql-tag'
 import React from 'react'
+import Slider from 'components/slider'
 
 const GET_POPULAR_MOVIES = gql`
   {
@@ -30,9 +30,7 @@ const PopularMovies = () => {
     return `Error! ${error.message}`
   }
 
-  return data.popularMovies.map(movie => (
-    <MediaCard key={movie.tmdbId} media={movie} />
-  ))
+  return <Slider mediaItems={data.popularMovies} />
 }
 
 export default PopularMovies
