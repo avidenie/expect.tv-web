@@ -8,7 +8,7 @@ function App() {
   return (
     <Fragment>
       <Global key="global-css" styles={global} />
-      <PopularMovies key="popular-movies" />
+      <PopularMovies />
     </Fragment>
   )
 }
