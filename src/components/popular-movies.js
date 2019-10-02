@@ -4,9 +4,8 @@ import React from 'react'
 import Slider from 'components/slider'
 
 const GET_POPULAR_MOVIES = gql`
-  {
+  query getPopularMovies {
     popularMovies(region: "US", language: "en") {
-      __typename
       tmdbId
       title
       images {
