@@ -1,6 +1,11 @@
 import css from '@emotion/css/macro'
 
 export default css`
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
