@@ -1,8 +1,7 @@
-import MediaCard from 'components/media-card'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import css from '@emotion/css/macro'
-import { addDecorator } from '@storybook/react'
+import MediaCard from 'components/media-card'
 
 const media = {
   tmdbId: 299534,
@@ -31,10 +30,9 @@ const maxWidthDecorator = story => (
   </div>
 )
 
-addDecorator(maxWidthDecorator)
-
 export default {
-  title: 'Media Card'
+  title: 'Media Card',
+  decorators: [maxWidthDecorator]
 }
 
 export const thumbnail = () => <MediaCard media={media} />
