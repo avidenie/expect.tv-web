@@ -4,11 +4,12 @@ import styled from '@emotion/styled/macro'
 import usePageSize from 'hooks/page-size'
 import usePrevious from 'hooks/previous'
 import { Fragment, useLayoutEffect, useState } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { animated, useSpring } from 'react-spring'
 
 const Container = styled.div`
   position: relative;
-  padding: 0 4%;
+  padding: 0 4% 0 calc(4% + 0.125rem);
   overflow: hidden;
 `
 const Wrapper = styled(animated.div)`
@@ -28,32 +29,24 @@ const Handle = styled.div`
   background: rgba(20, 20, 20, 0.5);
   width: 4%;
   height: 100%;
+  color: #fff;
+  > * {
+    opacity: 0.85;
+  }
   &:hover {
     background: rgba(20, 20, 20, 0.7);
     cursor: pointer;
-    font-weight: bold;
+  }
+  &:hover > * {
+    transform: scale(1.2);
+    opacity: 1;
   }
 `
 const HandlePrevious = styled(Handle)`
   left: 0;
-  width: calc(4% - 0.125rem);
 `
 const HandleNext = styled(Handle)`
   right: 0;
-`
-const Arrow = styled.span`
-  color: #fff;
-  font-size: 5vw;
-`
-const ArrowPrevious = styled(Arrow)`
-  &::before {
-    content: '\\2039';
-  }
-`
-const ArrowNext = styled(Arrow)`
-  &::before {
-    content: '\\203A';
-  }
 `
 
 function getStartIdx(currentIdx, pageSize) {
@@ -125,12 +118,12 @@ const Slider = ({ items, children: renderFrame, getPageSize, start = 0 }) => {
           </Wrapper>
           {active && currentIdx > 0 && (
             <HandlePrevious onClick={previousPage}>
-              <ArrowPrevious />
+              <FaChevronLeft />
             </HandlePrevious>
           )}
           {active && currentIdx < items.length - pageSize && (
             <HandleNext onClick={nextPage}>
-              <ArrowNext />
+              <FaChevronRight />
             </HandleNext>
           )}
         </Fragment>
