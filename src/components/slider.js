@@ -12,7 +12,7 @@ const Container = styled.div`
   padding: 0 4% 0 calc(4% + 0.125rem);
   overflow: hidden;
 `
-const Wrapper = styled(animated.div)`
+const Page = styled(animated.div)`
   white-space: nowrap;
 `
 const Item = styled.div`
@@ -59,7 +59,7 @@ function getPageItems(items, currentIdx, pageSize) {
   return items.slice(startIdx, endIdx)
 }
 
-const Slider = ({ items, children: renderFrame, getPageSize, start = 0 }) => {
+const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
   const [active, setActive] = useState(false)
   const [pageSize, ref] = usePageSize(getPageSize)
   const previousPageSize = usePrevious(pageSize)
@@ -107,15 +107,13 @@ const Slider = ({ items, children: renderFrame, getPageSize, start = 0 }) => {
       onMouseLeave={() => setActive(false)}>
       {pageSize > 0 && (
         <Fragment>
-          <Wrapper style={props}>
+          <Page style={props}>
             {getPageItems(items, currentIdx, pageSize).map(item => (
-              <Item
-                key={item.tmdbId}
-                style={{ width: `${pageSize > 0 ? 100 / pageSize : 0}%` }}>
-                {renderFrame(item)}
+              <Item key={item.tmdbId} style={{ width: `${100 / pageSize}%` }}>
+                {renderItem(item)}
               </Item>
             ))}
-          </Wrapper>
+          </Page>
           {active && currentIdx > 0 && (
             <HandlePrevious onClick={previousPage}>
               <FaChevronLeft />
