@@ -9,7 +9,7 @@ import { animated, useSpring } from 'react-spring'
 
 const Container = styled.div`
   position: relative;
-  padding: 0 4% 0 calc(4% + 0.125rem);
+  padding: 0 calc(4% + 0.0625rem);
   overflow: hidden;
 `
 const Page = styled(animated.div)`
@@ -17,7 +17,7 @@ const Page = styled(animated.div)`
 `
 const Item = styled.div`
   display: inline-block;
-  padding-right: 0.125rem;
+  padding: 0 0.0625rem;
   vertical-align: top;
 `
 const Handle = styled.div`
