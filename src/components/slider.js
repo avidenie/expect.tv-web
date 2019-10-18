@@ -3,14 +3,16 @@ import { jsx } from '@emotion/core'
 import styled from '@emotion/styled/macro'
 import usePageSize from 'hooks/page-size'
 import usePrevious from 'hooks/previous'
-import { Fragment, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { animated, useSpring } from 'react-spring'
 
 const Container = styled.div`
+  overflow: hidden;
+`
+const Wrapper = styled.div`
   position: relative;
   padding: 0 calc(4% + 0.0625rem);
-  overflow: hidden;
 `
 const Page = styled(animated.div)`
   white-space: nowrap;
@@ -101,12 +103,12 @@ const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
   }
 
   return (
-    <Container
-      ref={ref}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}>
-      {pageSize > 0 && (
-        <Fragment>
+    <Container>
+      <Wrapper
+        ref={ref}
+        onMouseEnter={() => setActive(true)}
+        onMouseLeave={() => setActive(false)}>
+        {pageSize > 0 && (
           <Page style={props}>
             {getPageItems(items, currentIdx, pageSize).map(item => (
               <Item key={item.tmdbId} style={{ width: `${100 / pageSize}%` }}>
@@ -114,18 +116,18 @@ const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
               </Item>
             ))}
           </Page>
-          {active && currentIdx > 0 && (
-            <HandlePrevious onClick={previousPage}>
-              <FaChevronLeft />
-            </HandlePrevious>
-          )}
-          {active && currentIdx < items.length - pageSize && (
-            <HandleNext onClick={nextPage}>
-              <FaChevronRight />
-            </HandleNext>
-          )}
-        </Fragment>
-      )}
+        )}
+        {active && currentIdx > 0 && (
+          <HandlePrevious onClick={previousPage}>
+            <FaChevronLeft />
+          </HandlePrevious>
+        )}
+        {active && currentIdx < items.length - pageSize && (
+          <HandleNext onClick={nextPage}>
+            <FaChevronRight />
+          </HandleNext>
+        )}
+      </Wrapper>
     </Container>
   )
 }
