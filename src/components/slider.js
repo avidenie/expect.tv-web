@@ -32,15 +32,17 @@ const Handle = styled.div`
   width: 4%;
   height: 100%;
   color: #fff;
-  > * {
-    opacity: 0.85;
-  }
   &:hover {
     background: rgba(20, 20, 20, 0.7);
     cursor: pointer;
   }
+  & > * {
+    transition: all 100ms ease-out;
+    opacity: 0.85;
+  }
   &:hover > * {
     transform: scale(1.2);
+    transition: all 250ms ease-in;
     opacity: 1;
   }
 `
