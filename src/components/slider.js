@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import styled from '@emotion/styled/macro'
-import usePageSize from 'hooks/page-size'
 import usePrevious from 'hooks/previous'
-import { useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { animated, useSpring } from 'react-spring'
+import useMeasure from 'use-measure'
 
 const Container = styled.div`
   overflow: hidden;
@@ -63,10 +63,31 @@ function getPageItems(items, currentIdx, pageSize) {
   return items.slice(fromIdx, toIdx)
 }
 
-const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
-  const [active, setActive] = useState(false)
-  const [pageSize, ref] = usePageSize(getPageSize)
+const Slider = ({
+  items,
+  children: renderItem,
+  getPageSize = width => {
+    if (width === 0) {
+      return 0
+    } else if (width <= 500) {
+      return 2
+    } else if (width > 2000) {
+      return 8
+    } else {
+      return 2 + Math.ceil((width - 500) / 300)
+    }
+  },
+  start = 0
+}) => {
+  const nodeRef = useRef()
+  const measurement = useMeasure(nodeRef)
+  const pageSizeCallback = useCallback(getPageSize, [measurement.width])
+  const pageSize = useMemo(() => pageSizeCallback(measurement.width), [
+    pageSizeCallback,
+    measurement.width
+  ])
   const previousPageSize = usePrevious(pageSize)
+  const [active, setActive] = useState(false)
   const [currentIdx, setCurrentIdx] = useState(start)
   const previousIdx = usePrevious(currentIdx)
   const [props, set] = useSpring(() => ({
@@ -109,7 +130,7 @@ const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
   return (
     <Container>
       <Wrapper
-        ref={ref}
+        ref={nodeRef}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}>
         {pageSize > 0 && (
