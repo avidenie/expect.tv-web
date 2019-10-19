@@ -53,14 +53,14 @@ const HandleNext = styled(Handle)`
   right: 0;
 `
 
-function getStartIdx(currentIdx, pageSize) {
+function getFromIdx(currentIdx, pageSize) {
   return Math.max(currentIdx - pageSize, 0)
 }
 
 function getPageItems(items, currentIdx, pageSize) {
-  const startIdx = getStartIdx(currentIdx, pageSize)
-  const endIdx = Math.min(currentIdx + pageSize * 2, items.length)
-  return items.slice(startIdx, endIdx)
+  const fromIdx = getFromIdx(currentIdx, pageSize)
+  const toIdx = Math.min(currentIdx + pageSize * 2, items.length)
+  return items.slice(fromIdx, toIdx)
 }
 
 const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
@@ -74,15 +74,17 @@ const Slider = ({ items, children: renderItem, getPageSize, start = 0 }) => {
   }))
 
   useLayoutEffect(() => {
-    const startIdx = getStartIdx(currentIdx, pageSize)
-    const from = pageSize > 0 ? (startIdx - previousIdx) * (100 / pageSize) : 0
-    const to = pageSize > 0 ? (startIdx - currentIdx) * (100 / pageSize) : 0
+    const fromIdx = getFromIdx(currentIdx, pageSize)
+    const translateFrom =
+      pageSize > 0 ? (fromIdx - previousIdx) * (100 / pageSize) : 0
+    const translateTo =
+      pageSize > 0 ? (fromIdx - currentIdx) * (100 / pageSize) : 0
     set({
       from: {
-        transform: `translateX(${from}%)`
+        transform: `translateX(${translateFrom}%)`
       },
       to: {
-        transform: `translateX(${to}%)`
+        transform: `translateX(${translateTo}%)`
       },
       immediate: pageSize !== previousPageSize
     })
