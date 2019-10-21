@@ -191,7 +191,7 @@ export const responsive = () => (
 )
 
 export const singleItem = () => (
-  <Slider items={items} getPageSize={() => 1}>
+  <Slider items={items} getPageSize={() => 1} focusable={false}>
     {item => (
       <Item key={item} color={item}>
         <Inner>{item}</Inner>

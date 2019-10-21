@@ -19,6 +19,7 @@ const Page = styled(animated.div)`
 `
 const Item = styled.div`
   display: inline-block;
+  transition: transform 350ms ease-out;
   padding: 0 0.0625rem;
   vertical-align: top;
 `
@@ -63,6 +64,55 @@ function getPageItems(items, currentIdx, pageSize) {
   return items.slice(fromIdx, toIdx)
 }
 
+function getPageIndices(currentIdx, pageSize) {
+  const fromIdx = getFromIdx(currentIdx, pageSize)
+  return {
+    firstIdx: currentIdx - fromIdx,
+    lastIdx: currentIdx - fromIdx + pageSize - 1
+  }
+}
+
+function getItemStyle(style = {}, itemIdx, focusedIdx, firstIdx, lastIdx) {
+  if (firstIdx === itemIdx) {
+    style.transformOrigin = 'center left'
+  } else if (lastIdx === itemIdx) {
+    style.transformOrigin = 'center right'
+  }
+  if (focusedIdx > -1) {
+    style.transition = 'transform 500ms ease-in'
+    if (focusedIdx === itemIdx) {
+      style.transform = 'translateX(0%) scale(1.5)'
+    } else if (focusedIdx === firstIdx) {
+      if (itemIdx > focusedIdx) {
+        style.transform = 'translateX(50%)'
+      } else if (itemIdx < focusedIdx) {
+        style.transform = 'translateX(0%)'
+      }
+    } else if (focusedIdx === lastIdx) {
+      if (itemIdx < focusedIdx) {
+        style.transform = 'translateX(-50%)'
+      } else if (itemIdx > focusedIdx) {
+        style.transform = 'translateX(0%)'
+      }
+    } else {
+      if (itemIdx < focusedIdx) {
+        style.transform = 'translateX(-25%)'
+      } else if (itemIdx > focusedIdx) {
+        style.transform = 'translateX(25%)'
+      }
+    }
+  }
+  return style
+}
+
+let focusedTimer = null
+function clearFocusedTimer() {
+  if (focusedTimer !== null) {
+    clearTimeout(focusedTimer)
+    focusedTimer = null
+  }
+}
+
 const Slider = ({
   items,
   children: renderItem,
@@ -77,7 +127,8 @@ const Slider = ({
       return 2 + Math.ceil((width - 500) / 300)
     }
   },
-  start = 0
+  start = 0,
+  focusable = true
 }) => {
   const nodeRef = useRef()
   const measurement = useMeasure(nodeRef)
@@ -93,6 +144,8 @@ const Slider = ({
   const [props, set] = useSpring(() => ({
     reset: true
   }))
+  const { firstIdx, lastIdx } = getPageIndices(currentIdx, pageSize)
+  const [focusedIdx, setFocusedIdx] = useState(-1)
 
   useLayoutEffect(() => {
     const fromIdx = getFromIdx(currentIdx, pageSize)
@@ -128,15 +181,46 @@ const Slider = ({
   }
 
   return (
-    <Container>
+    <Container
+      style={{
+        padding:
+          focusable && measurement.height > 0
+            ? `${measurement.height * 0.25}px 0`
+            : 0
+      }}>
       <Wrapper
         ref={nodeRef}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}>
         {pageSize > 0 && (
           <Page style={props}>
-            {getPageItems(items, currentIdx, pageSize).map(item => (
-              <Item key={item.tmdbId} style={{ width: `${100 / pageSize}%` }}>
+            {getPageItems(items, currentIdx, pageSize).map((item, i) => (
+              <Item
+                key={item.tmdbId}
+                style={getItemStyle(
+                  { width: `${100 / pageSize}%` },
+                  i,
+                  focusedIdx,
+                  firstIdx,
+                  lastIdx
+                )}
+                onMouseEnter={() => {
+                  if (focusable) {
+                    clearFocusedTimer()
+                    focusedTimer = setTimeout(
+                      () => {
+                        firstIdx <= i <= lastIdx && setFocusedIdx(i)
+                      },
+                      focusedIdx === -1 ? 500 : 0
+                    )
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (focusable) {
+                    clearFocusedTimer()
+                    firstIdx <= i <= lastIdx && setFocusedIdx(-1)
+                  }
+                }}>
                 {renderItem(item)}
               </Item>
             ))}
