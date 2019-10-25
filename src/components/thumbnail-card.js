@@ -77,26 +77,26 @@ const getImageUrl = (
   return `https://images.weserv.nl/${qs.stringify(params, true)}`
 }
 
-const renderLogo = media => {
-  if (media.images.logo) {
-    return <FallbackLogo src={getImageUrl(media.images.logo, { h: 120 })} />
+const renderLogo = item => {
+  if (item.images.logo) {
+    return <FallbackLogo src={getImageUrl(item.images.logo, { h: 120 })} />
   } else {
-    return <FallbackTitle>{media.title}</FallbackTitle>
+    return <FallbackTitle>{item.title}</FallbackTitle>
   }
 }
 
-const MediaCard = ({ media }) => {
+const ThumbnailCard = ({ item }) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   let shouldRenderLogo = false
   let thumbnail
-  if (media.images.thumbnail) {
-    thumbnail = getImageUrl(media.images.thumbnail)
-  } else if (media.images.backgrounds.length > 0) {
-    thumbnail = getImageUrl(media.images.backgrounds[0])
+  if (item.images.thumbnail) {
+    thumbnail = getImageUrl(item.images.thumbnail)
+  } else if (item.images.backgrounds.length > 0) {
+    thumbnail = getImageUrl(item.images.backgrounds[0])
     shouldRenderLogo = true
-  } else if (media.images.poster) {
-    thumbnail = getImageUrl(media.images.poster, {
+  } else if (item.images.poster) {
+    thumbnail = getImageUrl(item.images.poster, {
       w: 480,
       h: 270,
       fit: 'contain',
@@ -107,14 +107,14 @@ const MediaCard = ({ media }) => {
   return (
     <Container>
       <Layer>
-        {!isLoaded && <LoadingTitle>{media.title}</LoadingTitle>}
+        {!isLoaded && <LoadingTitle>{item.title}</LoadingTitle>}
         {thumbnail && (
           <Thumbnail src={thumbnail} onLoad={() => setIsLoaded(true)} />
         )}
-        {isLoaded && shouldRenderLogo && renderLogo(media)}
+        {isLoaded && shouldRenderLogo && renderLogo(item)}
       </Layer>
     </Container>
   )
 }
 
-export default MediaCard
+export default ThumbnailCard

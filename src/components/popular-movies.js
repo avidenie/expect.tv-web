@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/react-hooks'
-import MediaCard from 'components/media-card'
 import Slider from 'components/slider'
+import ThumbnailCard from 'components/thumbnail-card'
 import gql from 'graphql-tag'
 import React from 'react'
 
@@ -32,7 +32,7 @@ const PopularMovies = () => {
 
   return (
     <Slider items={data.popularMovies}>
-      {item => <MediaCard media={item} />}
+      {item => <ThumbnailCard item={item} />}
     </Slider>
   )
 }

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import css from '@emotion/css/macro'
-import MediaCard from 'components/media-card'
+import ThumbnailCard from 'components/thumbnail-card'
 
-const media = {
+const item = {
   tmdbId: 299534,
   title: 'Avengers: Endgame',
   images: {
@@ -31,18 +31,18 @@ const maxWidthDecorator = story => (
 )
 
 export default {
-  title: 'Media Card',
+  title: 'Thumbnail Card',
   decorators: [maxWidthDecorator]
 }
 
-export const thumbnail = () => <MediaCard media={media} />
+export const thumbnail = () => <ThumbnailCard item={item} />
 
 export const logoFallback = () => (
-  <MediaCard
-    media={{
-      ...media,
+  <ThumbnailCard
+    item={{
+      ...item,
       images: {
-        ...media.images,
+        ...item.images,
         thumbnail: null
       }
     }}
@@ -50,11 +50,11 @@ export const logoFallback = () => (
 )
 
 export const textFallback = () => (
-  <MediaCard
-    media={{
-      ...media,
+  <ThumbnailCard
+    item={{
+      ...item,
       images: {
-        ...media.images,
+        ...item.images,
         thumbnail: null,
         logo: null
       }
@@ -63,11 +63,11 @@ export const textFallback = () => (
 )
 
 export const posterFallback = () => (
-  <MediaCard
-    media={{
-      ...media,
+  <ThumbnailCard
+    item={{
+      ...item,
       images: {
-        ...media.images,
+        ...item.images,
         thumbnail: null,
         backgrounds: []
       }
@@ -76,9 +76,9 @@ export const posterFallback = () => (
 )
 
 export const noImages = () => (
-  <MediaCard
-    media={{
-      ...media,
+  <ThumbnailCard
+    item={{
+      ...item,
       images: {
         poster: null,
         thumbnail: null,
