@@ -14,7 +14,6 @@
   "scripts": {
     "build": "react-scripts build",
     "build-storybook": "build-storybook -s public",
-    "commit": "git-cz",
     "release": "standard-version",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
@@ -22,6 +21,7 @@
   },
   "husky": {
     "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
     }
   },
@@ -32,7 +32,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "@commitlint/prompt"
     }
   },
   "browserslist": {
@@ -69,12 +69,13 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/prompt": "^8.2.0",
     "@storybook/addon-actions": "^5.2.3",
     "@storybook/addon-links": "^5.2.3",
     "@storybook/addon-viewport": "^5.2.4",
     "@storybook/addons": "^5.2.3",
     "@storybook/react": "^5.2.3",
-    "cz-conventional-changelog": "3.0.2",
+    "commitizen": "^4.0.3",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-emotion": "^10.0.14",
     "eslint-plugin-prettier": "^3.1.1",
