@@ -99,6 +99,7 @@ const renderLogo = item => {
 
 const ThumbnailCard = ({ item }) => {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   let shouldRenderLogo = false
   let thumbnail
@@ -120,8 +121,12 @@ const ThumbnailCard = ({ item }) => {
     <Container>
       <Layer>
         {!isLoaded && <LoadingTitle>{item.title}</LoadingTitle>}
-        {thumbnail && (
-          <Thumbnail src={thumbnail} onLoad={() => setIsLoaded(true)} />
+        {thumbnail && !isError && (
+          <Thumbnail
+            src={thumbnail}
+            onError={() => setIsError(true)}
+            onLoad={() => setIsLoaded(true)}
+          />
         )}
         {isLoaded && shouldRenderLogo && renderLogo(item)}
       </Layer>
