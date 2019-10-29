@@ -97,7 +97,7 @@ const renderLogo = item => {
   }
 }
 
-const ThumbnailCard = ({ item }) => {
+const ThumbnailCard = ({ item, loading = 'auto' }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -126,6 +126,7 @@ const ThumbnailCard = ({ item }) => {
             src={thumbnail}
             onError={() => setIsError(true)}
             onLoad={() => setIsLoaded(true)}
+            loading={loading}
           />
         )}
         {isLoaded && shouldRenderLogo && renderLogo(item)}

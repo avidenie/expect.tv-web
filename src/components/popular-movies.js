@@ -32,7 +32,7 @@ const PopularMovies = () => {
 
   return (
     <Slider items={data.popularMovies}>
-      {item => <ThumbnailCard item={item} />}
+      {(item, props) => <ThumbnailCard item={item} {...props} />}
     </Slider>
   )
 }

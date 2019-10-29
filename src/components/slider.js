@@ -242,7 +242,12 @@ const Slider = ({
                     firstIdx <= i <= lastIdx && setFocusedIdx(-1)
                   }
                 }}>
-                {renderItem(item)}
+                {renderItem(item, {
+                  loading:
+                    i < currentIdx - 1 || i > currentIdx + pageSize
+                      ? 'lazy'
+                      : 'auto'
+                })}
               </Item>
             ))}
           </Page>
