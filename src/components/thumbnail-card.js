@@ -31,13 +31,12 @@ const Thumbnail = styled.img`
 const LoadingTitle = styled.div`
   position: absolute;
   right: 8%;
-  bottom: 12%;
+  bottom: 8%;
   left: 8%;
   margin: 0;
   padding: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1;
   white-space: nowrap;
   color: #fff;
   font-weight: bold;
