@@ -23,7 +23,7 @@ const Page = styled(animated.div)`
 `
 const Item = styled.div`
   display: inline-block;
-  transition: transform 350ms ease-out;
+  transition: transform 150ms ease-out;
   padding: 0 0.0625rem;
   vertical-align: top;
 `
@@ -42,12 +42,12 @@ const Handle = styled.div`
     cursor: pointer;
   }
   & > * {
-    transition: all 100ms ease-out;
+    transition: all 150ms ease-out;
     opacity: 0.85;
   }
   &:hover > * {
     transform: scale(1.2);
-    transition: all 250ms ease-in;
+    transition: all 150ms ease-in;
     opacity: 1;
   }
 `
@@ -83,7 +83,7 @@ function getItemStyle(style = {}, itemIdx, focusedIdx, firstIdx, lastIdx) {
     style.transformOrigin = 'center right'
   }
   if (focusedIdx > -1) {
-    style.transition = 'transform 500ms ease-in'
+    style.transition = 'transform 150ms ease-in'
     if (focusedIdx === itemIdx) {
       style.transform = 'translateX(0%) scale(1.5)'
     } else if (focusedIdx === firstIdx) {
