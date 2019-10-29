@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import styled from '@emotion/styled/macro'
-import { useState } from 'react'
+import { modularScale } from 'polished'
 import qs from 'querystringify'
+import { useState } from 'react'
+import { fluidRange } from 'styles/helpers'
 
 const Container = styled.div`
   position: relative;
@@ -35,10 +37,20 @@ const LoadingTitle = styled.div`
   padding: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1;
   white-space: nowrap;
   color: #fff;
-  font-size: 1.5em;
   font-weight: bold;
+  ${props =>
+    fluidRange(
+      {
+        prop: 'fontSize',
+        fromSize: modularScale(2, '1em', 'minorSecond'),
+        toSize: modularScale(3, '1em', 'minorSecond')
+      },
+      props.theme.breakpoints.xs,
+      props.theme.breakpoints.xl
+    )}
 `
 
 const FallbackLogo = styled.img`

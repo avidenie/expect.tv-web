@@ -9,6 +9,10 @@ import useMeasure from 'use-measure'
 
 const Container = styled.div`
   overflow: hidden;
+  padding: ${props =>
+    props.focusable && props.pageSize > 0
+      ? `calc(((92vw - 0.125rem) / ${props.pageSize} - 0.125rem) * 0.5625 * 0.25) 0`
+      : 0};
 `
 const Wrapper = styled.div`
   position: relative;
@@ -119,12 +123,9 @@ const Slider = ({
   getPageSize = width => {
     if (width === 0) {
       return 0
-    } else if (width <= 500) {
-      return 2
-    } else if (width > 2000) {
-      return 8
     } else {
-      return 2 + Math.ceil((width - 500) / 300)
+      const pageSize = 2 + Math.ceil((width - 600) / 300)
+      return Math.max(2, Math.min(pageSize, 8))
     }
   },
   start = 0,
@@ -182,14 +183,16 @@ const Slider = ({
 
   return (
     <Container
+      ref={nodeRef}
       style={{
         padding:
           focusable && measurement.height > 0
             ? `${measurement.height * 0.25}px 0`
             : 0
-      }}>
+      }}
+      focusable={focusable}
+      pageSize={pageSize}>
       <Wrapper
-        ref={nodeRef}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}>
         {pageSize > 0 && (
