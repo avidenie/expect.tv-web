@@ -9,14 +9,27 @@ import useMeasure from 'use-measure'
 
 const Container = styled.div`
   overflow: hidden;
-  padding: ${props =>
-    props.focusable && props.pageSize > 0
-      ? `calc(((92vw - 0.125rem) / ${props.pageSize} - 0.125rem) * 0.5625 * 0.25) 0`
-      : 0};
+  ${props => ({
+    padding:
+      props.focusable && props.pageSize > 0
+        ? `calc(((100vw - 3.125rem) / ${props.pageSize} - 0.125rem) * 0.5625 * 0.25) 0`
+        : 0,
+    [props.theme.mediaQueries.min.xs]: {
+      padding:
+        props.focusable && props.pageSize > 0
+          ? `calc(((92vw - 0.125rem) / ${props.pageSize} - 0.125rem) * 0.5625 * 0.25) 0`
+          : 0
+    }
+  })}
 `
 const Wrapper = styled.div`
   position: relative;
-  padding: 0 calc(4% + 0.0625rem);
+  padding: 0 1.5625rem;
+  ${props => ({
+    [props.theme.mediaQueries.min.xs]: {
+      padding: '0 calc(4% + 0.0625rem)'
+    }
+  })}
 `
 const Page = styled(animated.div)`
   white-space: nowrap;
@@ -34,7 +47,12 @@ const Handle = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(20, 20, 20, 0.5);
-  width: 4%;
+  width: 1.5rem;
+  ${props => ({
+    [props.theme.mediaQueries.min.xs]: {
+      width: '4%'
+    }
+  })}
   height: 100%;
   color: #fff;
   &:hover {
