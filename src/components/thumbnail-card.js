@@ -79,7 +79,7 @@ const FallbackTitle = styled.div`
 
 const getImageUrl = (
   imageUrl,
-  imageParams = { w: 480, h: 270, fit: 'cover' }
+  imageParams = { w: 416, h: 234, fit: 'cover' }
 ) => {
   const params = {
     url: imageUrl,
@@ -109,8 +109,8 @@ const ThumbnailCard = ({ item, loading = 'auto' }) => {
     shouldRenderLogo = true
   } else if (item.images.poster) {
     thumbnail = getImageUrl(item.images.poster, {
-      w: 480,
-      h: 270,
+      w: 416,
+      h: 234,
       fit: 'contain',
       cbg: 'black'
     })
@@ -123,9 +123,9 @@ const ThumbnailCard = ({ item, loading = 'auto' }) => {
         {thumbnail && !isError && (
           <Thumbnail
             src={thumbnail}
+            loading={loading}
             onError={() => setIsError(true)}
             onLoad={() => setIsLoaded(true)}
-            loading={loading}
           />
         )}
         {isLoaded && shouldRenderLogo && renderLogo(item)}

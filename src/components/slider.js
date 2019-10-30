@@ -142,7 +142,7 @@ const Slider = ({
     if (width === 0) {
       return 0
     } else {
-      const pageSize = 2 + Math.ceil((width - 600) / 300)
+      const pageSize = 2 + Math.ceil((width - 599.98) / 300)
       return Math.max(2, Math.min(pageSize, 8))
     }
   },
